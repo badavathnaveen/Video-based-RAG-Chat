@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video to Audio and Knowledge App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        input[type="file"], input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .chat-box {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .response-section {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .question {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with Your Video</h1>
+    <h3>You're one-step away from Video-based Question Answering!</h3>
+
+    {% if error %}
+        <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+    
+    {% if success %}
+        <p style="color: green; text-align: center;">Video processed successfully!</p>
+    {% endif %}
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="video">Upload a video file:</label>
+        <input type="file" name="video" accept="video/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if transcription %}
+        <div class="chat-box">
+            <h3>Transcription:</h3>
+            <p>{{ transcription }}</p>
+        </div>
+    {% endif %}
+
+    {% if question and response %}
+        <div class="chat-box">
+            <h3>Response:</h3>
+            <div class="response-section">
+                <p class="question">Q: {{ question }}</p>
+                <p>A: {{ response }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <form action="/ask" method="post">
+        <input type="text" name="question" placeholder="Ask a question..." required>
+        <button type="submit">Ask</button>
+    </form>
+</body>
+</html>

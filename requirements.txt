@@ -1,0 +1,8 @@
+flask
+langchain_community
+groq
+assemblyai
+langchain_groq
+moviepy==1.0.3
+sentence-transformers
+faiss-cpu
