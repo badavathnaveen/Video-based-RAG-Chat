@@ -6,3 +6,4 @@ langchain_groq
 moviepy==1.0.3
 sentence-transformers
 faiss-cpu
+gunicorn
